@@ -131,7 +131,8 @@ msgstr "ஏற்க்கனவே அக்கவுண்ட் உள்ள�
 
 #: apps/client/src/pages/dashboard/resumes/_dialogs/import.tsx:144
 msgid "An error occurred while validating the file."
-msgstr "கோப்பிணை அங்கீகரிக்கும் \n"
+msgstr ""
+"கோப்பிணை அங்கீகரிக்கும் \n"
 " போது ஒரு பிழை ஏற்பட்டது."
 
 #: apps/client/src/pages/public/error.tsx:23
@@ -246,7 +247,8 @@ msgstr "கொண்டு கட்டப்பட்டது"
 #: apps/client/src/components/copyright.tsx:28
 #: apps/client/src/pages/home/sections/contributors/index.tsx:20
 msgid "By the community, for the community."
-msgstr "சமூகத்தால், சமூகத்திற்காக.\n"
+msgstr ""
+"சமூகத்தால், சமூகத்திற்காக.\n"
 "தமிழில் மொழி பெயர்ததது : திவாகர் ராமசாமி MCA மாணவன், குமரகுரு தொழில்நுட்ப கல்லூரி, கோயம்புத்தூர் -39."
 
 #: apps/client/src/pages/builder/sidebars/left/sections/shared/section-dialog.tsx:135
@@ -557,7 +559,7 @@ msgstr ""
 msgid "Errors"
 msgstr ""
 
-#: apps/client/src/pages/home/sections/support/index.tsx:100
+#: apps/client/src/pages/home/sections/support/index.tsx:109
 msgid "Even if you're not in a position to contribute financially, you can still make a difference by giving the GitHub repository a star, spreading the word to your friends, or dropping a quick message to let me know how Reactive Resume has helped you. Your feedback and support are always welcome and much appreciated!"
 msgstr ""
 
@@ -743,7 +745,7 @@ msgstr ""
 msgid "If you disable two-factor authentication, you will no longer be required to enter a verification code when logging in."
 msgstr ""
 
-#: apps/client/src/pages/home/sections/support/index.tsx:75
+#: apps/client/src/pages/home/sections/support/index.tsx:84
 msgid "If you're multilingual, we'd love your help in bringing the app to more languages and communities. Don't worry if you don't see your language on the list - just give me a shout-out on GitHub, and I'll make sure to include it. Ready to get started? Jump into translation over at Crowdin by clicking the link below."
 msgstr ""
 
@@ -1829,4 +1831,3 @@ msgstr ""
 #: apps/client/src/pages/builder/_components/toolbar.tsx:118
 msgid "Zoom Out"
 msgstr ""
-

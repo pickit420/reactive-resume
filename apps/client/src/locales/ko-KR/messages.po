@@ -555,7 +555,7 @@ msgstr ""
 msgid "Errors"
 msgstr "오류"
 
-#: apps/client/src/pages/home/sections/support/index.tsx:100
+#: apps/client/src/pages/home/sections/support/index.tsx:109
 msgid "Even if you're not in a position to contribute financially, you can still make a difference by giving the GitHub repository a star, spreading the word to your friends, or dropping a quick message to let me know how Reactive Resume has helped you. Your feedback and support are always welcome and much appreciated!"
 msgstr "재정적으로 기여하지 않으셔도 GitHub 저장소에 별점을 주거나, 친구들에게 알리거나, Reactive Resume가 어떻게 도움이 되었는지 메시지로 알려주시면 더욱 발전 할 수 있습니다. 귀하의 피드백과 지원은 언제나 환영이며 많은 감사를 드립니다!"
 
@@ -741,7 +741,7 @@ msgstr "이 앱이 구직 활동에 도움이 되었다면 <0>이 문의 양식�
 msgid "If you disable two-factor authentication, you will no longer be required to enter a verification code when logging in."
 msgstr "2단계 인증을 비활성화하면 로그인할 때 더 이상 인증 코드를 입력할 필요가 없습니다."
 
-#: apps/client/src/pages/home/sections/support/index.tsx:75
+#: apps/client/src/pages/home/sections/support/index.tsx:84
 msgid "If you're multilingual, we'd love your help in bringing the app to more languages and communities. Don't worry if you don't see your language on the list - just give me a shout-out on GitHub, and I'll make sure to include it. Ready to get started? Jump into translation over at Crowdin by clicking the link below."
 msgstr "다국어를 사용하는 경우 더 많은 언어와 커뮤니티에 앱을 제공할 수 있도록 도와주시면 감사하겠습니다. 목록에 귀하의 언어가 없더라도 걱정하지 마시고 GitHub에 알려주시면 포함할 수 있도록 하겠습니다. 시작할 준비가 되셨나요? 아래 링크를 클릭하여 Crowdin에서 번역을 시작하세요."
 
@@ -1827,4 +1827,3 @@ msgstr "줌인"
 #: apps/client/src/pages/builder/_components/toolbar.tsx:118
 msgid "Zoom Out"
 msgstr "줌 아웃"
-

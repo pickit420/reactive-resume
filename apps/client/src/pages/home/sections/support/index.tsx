@@ -69,6 +69,15 @@ export const SupportSection = () => (
           {/* eslint-disable-next-line lingui/no-unlocalized-strings */}
           <img src="/support-logos/discord.png" className="max-h-[32px]" alt="Discord" />
         </a>
+
+        <a
+          href="https://link.lazymedia.media/fluxer-temp-invite"
+          rel="noreferrer noopener nofollow"
+          target="_blank"
+        >
+          {/* eslint-disable-next-line lingui/no-unlocalized-strings */}
+          <img src="/support-logos/fluxer-symbol-color.svg" className="max-h-[32px]" alt="Fluxer" />
+        </a>
       </div>
 
       <p className="max-w-4xl leading-loose">
