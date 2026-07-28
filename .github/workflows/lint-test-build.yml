@@ -35,7 +35,7 @@ jobs:
           node-version: 22
 
       - name: Install Dependencies
-        run: pnpm install --frozen-lockfile && pnpm approve-builds
+        run: pnpm install --frozen-lockfile && pnpm approve-builds --force
 
       - name: Lint
         run: pnpm run lint
