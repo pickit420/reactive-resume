@@ -2,7 +2,7 @@ import { HttpService } from "@nestjs/axios";
 import { Injectable, InternalServerErrorException, Logger } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
 import { ResumeDto } from "@reactive-resume/dto";
-import { ErrorMessage } from "@reactive-resume/utils";
+import { ErrorMessage, MM_TO_PX, pageSizeMap } from "@reactive-resume/utils";
 import retry from "async-retry";
 import { PDFDocument } from "pdf-lib";
 import { connect } from "puppeteer";
@@ -157,12 +157,19 @@ export class PrinterService {
 
       const pagesBuffer: Buffer[] = [];
 
+      // The exported PDF must always be sized to the *nominal* dimensions of the selected page
+      // format (A4/Letter), not to however tall a given layout page happens to render. Using the
+      // measured `scrollHeight` here (as before) forces the entire, possibly-overflowing content
+      // of a single layout page onto one oversized PDF page instead of letting the browser's
+      // native print pagination split it across as many correctly-sized pages as it needs -
+      // which is exactly what produced "one single long page" for narrower (A4) layouts whose
+      // text wraps onto more lines than the same content does in the wider Letter format.
+      const { format } = resume.data.metadata.page;
+      const width = pageSizeMap[format].width * MM_TO_PX;
+      const height = pageSizeMap[format].height * MM_TO_PX;
+
       const processPage = async (index: number) => {
         const pageElement = await page.$(`[data-page="${index}"]`);
-        // eslint-disable-next-line unicorn/no-await-expression-member
-        const width = (await (await pageElement?.getProperty("scrollWidth"))?.jsonValue()) ?? 0;
-        // eslint-disable-next-line unicorn/no-await-expression-member
-        const height = (await (await pageElement?.getProperty("scrollHeight"))?.jsonValue()) ?? 0;
 
         const temporaryHtml = await page.evaluate((element: HTMLDivElement) => {
           const clonedElement = element.cloneNode(true) as HTMLDivElement;
@@ -170,6 +177,16 @@ export class PrinterService {
           document.body.innerHTML = clonedElement.outerHTML;
           return temporaryHtml_;
         }, pageElement);
+
+        // The artboard's global stylesheet sets `body { overflow: hidden; }` (it just hides the
+        // scrollbar in the live builder/preview iframe), which would otherwise clip any content
+        // that overflows the nominal page height instead of letting it flow onto additional
+        // printed pages. Override it for this print pass only.
+        await page.evaluate(() => {
+          const styleTag = document.createElement("style");
+          styleTag.textContent = "body { overflow: visible !important; height: auto !important; }";
+          document.head.append(styleTag);
+        });
 
         // Apply custom CSS, if enabled
         const css = resume.data.metadata.css;
@@ -196,13 +213,18 @@ export class PrinterService {
         await processPage(index);
       }
 
-      // Using 'pdf-lib', merge all the pages from their buffers into a single PDF
+      // Using 'pdf-lib', merge all the pages from their buffers into a single PDF.
+      // NOTE: each buffer can itself now contain *more than one* physical PDF page - if a layout
+      // page's content overflows the nominal A4/Letter height, the browser's native print
+      // pagination (see `processPage` above) will have split it across multiple pages within
+      // that single buffer. Copy every page from each buffer, not just the first, otherwise any
+      // overflow pages would silently be dropped from the final export.
       const pdf = await PDFDocument.create();
 
       for (const element of pagesBuffer) {
         const page = await PDFDocument.load(element);
-        const [copiedPage] = await pdf.copyPages(page, [0]);
-        pdf.addPage(copiedPage);
+        const copiedPages = await pdf.copyPages(page, page.getPageIndices());
+        for (const copiedPage of copiedPages) pdf.addPage(copiedPage);
       }
 
       // Save the PDF to storage and return the URL to download the resume

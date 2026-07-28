@@ -1,5 +1,5 @@
 import { useTheme } from "@reactive-resume/hooks";
-import { cn, pageSizeMap } from "@reactive-resume/utils";
+import { cn, MM_TO_PX, pageSizeMap } from "@reactive-resume/utils";
 
 import { useArtboardStore } from "../store/artboard";
 
@@ -9,7 +9,10 @@ type Props = {
   children: React.ReactNode;
 };
 
-export const MM_TO_PX = 3.78;
+// Re-exported for existing consumers (e.g. `apps/artboard/src/pages/builder.tsx`) that import
+// `MM_TO_PX` from this module. The canonical definition now lives in `@reactive-resume/utils`
+// so the server-side printer can use the exact same constant.
+export { MM_TO_PX };
 
 export const Page = ({ mode = "preview", pageNumber, children }: Props) => {
   const { isDarkMode } = useTheme();
