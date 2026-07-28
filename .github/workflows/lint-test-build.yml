@@ -35,7 +35,7 @@ jobs:
           node-version: 22
 
       - name: Approve Builds
-        run: pnpm approve-builds -g
+        run: pnpm approve-builds
 
       - name: Install Dependencies
         run: pnpm install --frozen-lockfile
